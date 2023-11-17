@@ -1,57 +1,60 @@
 package PageObjects;
 
 import ReusableComponent.ResuableComponent;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static BrowserSetup.BrowserSetup1.driver;
 
 public class AddToCart  {
 
     ResuableComponent resuable;
 
-    @FindBy(xpath="//*[@id =\"homefeatured\"]/li[2]/div/div[1]/div/a[1]/img")
-    WebElement itemImage;
 
-    @FindBy(xpath="//*[@id=\"homeFeatured\"]li[2]/div/div[2]/div[2]/a[2]")
-     WebElement btnMore;
+    @FindBy(xpath = "//div[@id='shopping_cart_container']//a[contains(@class, 'shopping_cart_link')]")
+    public static WebElement cart_Button_Element;
 
-    @FindBy(xpath = "//*[@id=\"quantity_wanted\"]")
-       WebElement txtQuantity;
+    @FindBy(linkText = "CHECKOUT")
+    public static WebElement checkOut_Button_Element;
 
-    @FindBy(xpath="//*[@id=\"group_1\"]")
+    @FindBy(xpath = "//input[@id='first-name']")
+    public static WebElement firstName_Input_Element;
 
-    WebElement selectSize;
+    @FindBy(xpath = "//input[@id='last-name']")
+    public static WebElement lastName_Input_Element;
 
-    @FindBy(xpath="//*[@id=\"add_to_cart\"]/button")
-    WebElement btnAddToCart;
+    @FindBy(xpath = "//input[@id='postal-code']")
+    public static WebElement zipCode_Input_Element;
 
-    @FindBy(css="div#layer_cart a>span")
-    WebElement btncheckout;
+    @FindBy(xpath = "//input[@type='submit']")
+    public static WebElement continue_Button_Element;
 
-    @FindBy(xpath="//*[id = \"header\"]/div[3]/div/div/div[3]/div/a/span[1]")
-    WebElement cartText;
+    @FindBy(
+            xpath =
+                    "//div[@class='inventory_item_label']//a//div[contains(text(), 'Sauce Labs Backpack')]")
+    public static WebElement itemWebElement;
 
-    public AddToCart(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        ResuableComponent resuable = new ResuableComponent();
+    public static WebElement getProductByName(String productName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath(
+                                "//div[@class='inventory_item_label']//a//div[contains(text(), '"
+                                        + productName
+                                        + "')]")));
     }
-    public boolean validateAddToCart(WebDriver driver){
-        resuable.performMouseHower(itemImage,driver);
-        resuable.click(btnMore);
-        resuable.settext("3",txtQuantity);
-        resuable.selectByVisibleText(selectSize,"M");
-        resuable.click(btnAddToCart);
-        resuable.clickUsingJavaScriptExecutor(btncheckout,driver);
-        resuable.refresh(driver);
-        return resuable.validateText(driver,cartText,"3");
 
-
-
+    public static WebElement getAddToCartButton(WebElement productElement) {
+        return productElement.findElement(
+                By.xpath(
+                        "./ancestor::div[@class='inventory_item']//button[@class='btn_primary btn_inventory']"));
     }
 }
-
-
 
 
 

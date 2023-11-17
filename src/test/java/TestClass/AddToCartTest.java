@@ -1,31 +1,37 @@
 package TestClass;
 
-import PageObjects.AddToCart;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import BrowserSetup.BrowserSetup1;
+import Constants.SetupConstants;
+import DataProvider.CartData;
+import DataProvider.CartTestData;
+import Operations.LoginOperations;
+import Operations.ProductOperations;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class AddToCartTest {
-    WebDriver driver;
-    AddToCart page;
-    @BeforeTest
-    public void setup(){
-        System.setProperty("webdriver.chrome.driver","C:\\Program Files\\chromeDriver.exe");
-        driver = new ChromeDriver();
-        driver.get("http://automationpractice.com/index.php");
-        driver.manage().window().maximize();
-        page = new AddToCart(driver);
-    }
-    @Test
-    public void validateAddToCart(){
-        Assert.assertTrue(page.validateAddToCart(driver));
-    }
-    @AfterTest
-    public void close(){
-        driver.quit();
+    @BeforeClass(groups = {"sanity", "regression"})
+    public static void BrowserLaunch() {
+        BrowserSetup1.navigateToURL(SetupConstants.URL);
     }
 
+
+    @Test(
+            dataProvider = "CartData",
+            dataProviderClass = CartData.class,
+            priority = 2,
+            groups = {"sanity"})
+    public static void addItemToCart(CartTestData testData) {
+        LoginOperations loginOperations = new LoginOperations();
+        ProductOperations productsOperations = new ProductOperations();
+        loginOperations.login(testData.getusername, testData.getpassword());
+        ProductOperations.addToCart(new String[] {testData.getitemToAdd()});
+    }
+
+    @AfterClass
+    public static void testCompletion() {
+        BrowserSetup1.navigateToURL(SetupConstants.URL);
+    }
 }
+

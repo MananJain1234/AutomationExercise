@@ -1,29 +1,18 @@
 package PageObjects;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.How;
 
 public class LoginPageObjects {
 
-    @FindBy(xpath ="//input[@id = 'email')]")
-    WebElement email;
 
-    @FindBy(xpath ="//input[@contains(id,'passed')]")
-    WebElement pass;
+    @FindBy(how = How.ID, using = "user-name")
+    public static WebElement userName_Element;
 
-    @FindBy(xpath ="//span[contains (.,'Sign in')]")
-    WebElement btnsubmit;
+    @FindBy(how = How.ID, using = "password")
+    public static WebElement password_Element;
 
-
-    public LoginPageObjects(WebDriver driver){
-        PageFactory.initElements(driver,this);
-
-    }
-     public void validateLogin(){
-         email.sendKeys();
-         pass.sendKeys();
-         btnsubmit.click();
-}
+    @FindBy(xpath = "//input[@id='login-button']")
+    public static WebElement loginButton_Element;
 }
