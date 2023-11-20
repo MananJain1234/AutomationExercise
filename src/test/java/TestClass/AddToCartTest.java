@@ -1,6 +1,6 @@
 package TestClass;
 
-import BrowserSetup.BrowserSetup1;
+import BrowserSetup.sds;
 import Constants.SetupConstants;
 import DataProvider.CartData;
 import DataProvider.CartTestData;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class AddToCartTest {
     @BeforeClass(groups = {"sanity", "regression"})
     public static void BrowserLaunch() {
-        BrowserSetup1.navigateToURL(SetupConstants.URL);
+        sds.navigateToURL(SetupConstants.URL);
     }
 
 
@@ -24,14 +24,13 @@ public class AddToCartTest {
             groups = {"sanity"})
     public static void addItemToCart(CartTestData testData) {
         LoginOperations loginOperations = new LoginOperations();
-        ProductOperations productsOperations = new ProductOperations();
-        loginOperations.login(testData.getusername, testData.getpassword());
-        ProductOperations.addToCart(new String[] {testData.getitemToAdd()});
+        ProductOperations ProductOperations = new ProductOperations();
+        loginOperations.login(testData.getUsername(), testData.getPassword());
+        ProductOperations.addToCart(new String[] {testData.getItemToAdd()});
     }
-
     @AfterClass
     public static void testCompletion() {
-        BrowserSetup1.navigateToURL(SetupConstants.URL);
+        sds.navigateToURL(SetupConstants.URL);
     }
 }
 

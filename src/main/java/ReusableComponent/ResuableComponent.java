@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static BrowserSetup.BrowserSetup1.driver;
+import static BrowserSetup.sds.driver;
 
 public class ResuableComponent {
 

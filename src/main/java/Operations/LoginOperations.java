@@ -3,7 +3,7 @@ package Operations;
 import PageObjects.LoginPageObjects;
 import org.openqa.selenium.support.PageFactory;
 
-import static BrowserSetup.BrowserSetup1.driver;
+import static BrowserSetup.sds.driver;
 import static PageObjects.LoginPageObjects.*;
 
 public class LoginOperations {
