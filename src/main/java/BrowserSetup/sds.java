@@ -12,15 +12,12 @@ public class sds {
         }
         return driver;
     }
-
     public static void setupDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
     }
-
     public static void navigateToURL(String url) {
-        getDriverInstance().manage().deleteAllCookies();
         getDriverInstance().get(url);
         getDriverInstance().manage().window().maximize();
     }

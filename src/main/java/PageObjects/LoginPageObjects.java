@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class LoginPageObjects {
-
-
     @FindBy(how = How.ID, using = "user-name")
     public static WebElement userName_Element;
 

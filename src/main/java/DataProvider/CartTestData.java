@@ -2,8 +2,6 @@ package DataProvider;
 
 import lombok.Getter;
 @SuppressWarnings("FieldMayBeFinal")
-
-
 @Getter
 public class CartTestData {
     private String username;

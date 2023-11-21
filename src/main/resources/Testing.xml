@@ -15,6 +15,7 @@
         <classes>
             <class name="TestClass.LoginPageTestScript" />
             <class name="TestClass.AddToCartTest" />
+            <class name ="TestClass.FullTest"/>
         </classes>
     </test>
 </suite>

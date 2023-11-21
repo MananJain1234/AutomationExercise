@@ -1,6 +1,5 @@
 package PageObjects;
 
-import ReusableComponent.ResuableComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,10 +11,6 @@ import java.time.Duration;
 import static BrowserSetup.sds.driver;
 
 public class AddToCart  {
-
-    ResuableComponent resuable;
-
-
     @FindBy(xpath = "//div[@id='shopping_cart_container']//a[contains(@class, 'shopping_cart_link')]")
     public static WebElement cart_Button_Element;
 
@@ -33,12 +28,10 @@ public class AddToCart  {
 
     @FindBy(xpath = "//input[@type='submit']")
     public static WebElement continue_Button_Element;
-
     @FindBy(
             xpath =
                     "//div[@class='inventory_item_label']//a//div[contains(text(), 'Sauce Labs Backpack')]")
     public static WebElement itemWebElement;
-
     public static WebElement getProductByName(String productName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         return wait.until(

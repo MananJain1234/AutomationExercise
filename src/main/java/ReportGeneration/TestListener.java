@@ -1,17 +1,29 @@
 package ReportGeneration;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import com.aventstack.extentreports.Status;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static BrowserSetup.sds.driver;
+
 public class TestListener implements ITestListener {
 
-    public void onStart(ITestContext context) {
-        System.out.println("*** Test Suite " + context.getName() + " started ***");
+    public void onStart(ITestContext context) { // TODO Remove the use of SysOut
+        System.out.println("** Test Suite " + context.getName() + " started **");
     }
 
     public void onFinish(ITestContext context) {
-        System.out.println(("*** Test Suite " + context.getName() + " ending ***"));
+        System.out.println(("** Test Suite " + context.getName() + " ending **"));
         ExtentTestManager.endTest();
         ExtentManager.getInstance().flush();
     }
@@ -22,13 +34,31 @@ public class TestListener implements ITestListener {
     }
 
     public void onTestSuccess(ITestResult result) {
-        System.out.println("*** Executed " + result.getMethod().getMethodName() + " test successfully...");
+        System.out.println(
+                "*** Executed " + result.getMethod().getMethodName() + " test successfully...");
         ExtentTestManager.getTest().log(Status.PASS, "Test passed");
     }
 
     public void onTestFailure(ITestResult result) {
         System.out.println("*** Test execution " + result.getMethod().getMethodName() + " failed...");
-        ExtentTestManager.getTest().log(Status.FAIL, "Test Failed");
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            ExtentTest test = ExtentTestManager.getTest();
+            test.log(Status.FAIL, "Test Failed");
+
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File screenshot = ts.getScreenshotAs(OutputType.FILE);
+
+            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            String screenshotPath = System.getProperty("user.dir") + "/screenshots/screenshot_" + timestamp + ".png"; // Absolute path
+
+            try {
+                FileUtils.copyFile(screenshot, new File(screenshotPath));
+                test.addScreenCaptureFromPath(System.getProperty("user.dir") + "/" + screenshotPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void onTestSkipped(ITestResult result) {
@@ -37,7 +67,9 @@ public class TestListener implements ITestListener {
     }
 
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        System.out.println("*** Test failed but within percentage % " + result.getMethod().getMethodName());
+        System.out.println(
+                "*** Test failed but within percentage % " + result.getMethod().getMethodName());
     }
 }
+
 
