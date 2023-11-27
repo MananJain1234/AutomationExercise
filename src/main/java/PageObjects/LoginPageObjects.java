@@ -8,6 +8,7 @@ public class LoginPageObjects {
     @FindBy(how = How.ID, using = "user-name")
     public static WebElement userName_Element;
 
+
     @FindBy(how = How.ID, using = "password")
     public static WebElement password_Element;
 

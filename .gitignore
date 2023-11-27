@@ -33,6 +33,7 @@ build/
 target
 .idea
 TestReport
+TestReport/Test-Automaton-Report.html
 
 
 ### VS Code ###

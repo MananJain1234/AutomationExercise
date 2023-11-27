@@ -10,7 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class AddToCartTest {
+public class AddToCartTest extends LoginOperations {
     @BeforeClass(groups = {"sanity", "regression"})
     public static void BrowserLaunch() {
         sds.navigateToURL(SetupConstants.URL);
@@ -23,9 +23,8 @@ public class AddToCartTest {
             priority = 2,
             groups = {"sanity"})
     public static void addItemToCart(CartTestData testData) {
-        LoginOperations loginOperations = new LoginOperations();
         ProductOperations ProductOperations = new ProductOperations();
-        loginOperations.login(testData.getUsername(), testData.getPassword());
+        LoginOperations.login(testData.getUsername(), testData.getPassword());
         ProductOperations.addToCart(new String[] {testData.getItemToAdd()});
     }
     @AfterClass

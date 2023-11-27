@@ -11,7 +11,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static BrowserSetup.sds.driver;
-public class FullTest {
+public class FullTest extends CartOperations {
     @BeforeClass(groups = {"sanity", "regression"})
     public static void browserSetup() {
         sds.setupDriver();
@@ -22,7 +22,6 @@ public class FullTest {
             dataProviderClass = CartData.class,
             groups = "regression")
     public static void endToEndCheckout(CartTestData testData) {
-        CartOperations CartOperations = new CartOperations();
         LoginOperations LoginOperations = new LoginOperations();
         LoginOperations.login(testData.getUsername(), testData.getPassword());
         ProductOperations.addToCart(new String[]{testData.getItemToAdd()});
