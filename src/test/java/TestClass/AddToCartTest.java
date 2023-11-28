@@ -16,7 +16,6 @@ public class AddToCartTest extends LoginOperations {
         sds.navigateToURL(SetupConstants.URL);
     }
 
-
     @Test(
             dataProvider = "CartData",
             dataProviderClass = CartData.class,
