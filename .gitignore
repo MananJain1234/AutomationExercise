@@ -30,8 +30,11 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+target
 .idea
 TestReport
+TestReport/Test-Automaton-Report.html
+
 
 ### VS Code ###
 .vscode/

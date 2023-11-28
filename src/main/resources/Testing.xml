@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Test Suite" verbose="1">
+<suite name="Sauce Demo Test Suite" verbose="1">
     <listeners>
         <listener class-name="ReportGeneration.TestListener" />
     </listeners>
 
     <test name="Add To Cart Tests">
+        <groups>
+            <run>
+                <include name="sanity"/>
+                <include name="regression"/>
+            </run>
+        </groups>
         <classes>
             <class name="TestClass.LoginPageTestScript" />
             <class name="TestClass.AddToCartTest" />
+            <class name ="TestClass.FullTest"/>
         </classes>
     </test>
 </suite>
